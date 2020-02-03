@@ -42,23 +42,19 @@ exports.userLogin = (req, res, next) => {
             throw new Error(constantesUsuarios.USUARIO_INVALIDO);
         }
 
-        const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser.id },
-            constantesUsuarios.SECRET_KEY, { expiresIn: "20000ms" }
+        const token = jwt.sign({
+            email: fetchedUser.email, userId: fetchedUser.id,
+            userId: fetchedUser.id,
+            email: fetchedUser.email,
+            name: fetchedUser.nombre
+        },
+            constantesUsuarios.SECRET_KEY, { expiresIn: 3600 }
         );
 
         res.status(200).json({
-            payload:{
-                token: token,
-                expiresIn: 20000,
-                userId: fetchedUser.id,
-                userName: fetchedUser.email,
-                name: fetchedUser.nombre
-            },
-            token: token,
-            expiresIn: 20000,
-            userId: fetchedUser.id,
-            userName: fetchedUser.email,
-            name: fetchedUser.nombre
+            data: {
+                token: token
+            }
         });
     }).catch(err => {
         next(err);
