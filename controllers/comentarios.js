@@ -16,7 +16,7 @@ exports.crear = async (req, res, next) => {
 
 exports.obtener = async (req, res, next) => {
     try {
-        const comentarios = await Comentario.findAll();
+        const comentarios = await Comentario.findAll({ where: { usuario: +req.params.usuario } });
         res.status(200).json(comentarios);
     } catch (error) {
         res.status(500).json({ message: 'No se lograron obtener los comentarios', data: error });

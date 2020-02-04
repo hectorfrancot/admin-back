@@ -7,7 +7,7 @@ const router = express.Router();
 const checkAuth = require("../middleware/check-auth");
 
 router.post("/", checkAuth, comentariosController.crear);
-router.get("/", checkAuth, comentariosController.obtener);
+router.get("/:usuario", checkAuth, comentariosController.obtener);
 router.put("/", checkAuth, comentariosController.actualizar);
 router.delete("/:id", checkAuth, comentariosController.eliminar);
 
